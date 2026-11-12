@@ -1,0 +1,5 @@
+syntax = "proto3";
+package bad;
+message WithMap {
+  map<string, int32> entries = 1;
+}

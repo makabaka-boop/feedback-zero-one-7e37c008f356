@@ -1,0 +1,6 @@
+syntax = "proto2";
+package old;
+message Legacy {
+  optional int32 a = 1;
+  required string b = 2;
+}

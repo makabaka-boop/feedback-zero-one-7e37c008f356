@@ -1,0 +1,5 @@
+syntax = "proto3";
+package bad;
+message WithOpt {
+  optional int32 maybe = 1;
+}

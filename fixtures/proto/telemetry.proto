@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package tele;
+
+// 综合合法 schema：覆盖 int32、sint64、string、bytes、message、
+// repeated、oneof，以及嵌套消息与默认值场景。
+message Inner {
+  int32 x = 1;
+  sint64 y = 2;
+  string note = 3;
+  bytes raw = 4;
+  repeated int32 samples = 5;
+}
+
+message Choice {
+  oneof pick {
+    int32 scalar = 1;
+    string text = 2;
+    Inner sub = 3;
+  }
+}
+
+// 同一消息内两个独立 oneof，验证各组的清除状态互不干扰。
+message DualChoice {
+  oneof first {
+    int32 f_num = 1;
+    string f_str = 2;
+  }
+  oneof second {
+    sint64 s_num = 3;
+    bytes s_raw = 4;
+    Inner s_sub = 5;
+  }
+}
+
+message Envelope {
+  int32 id = 1;
+  sint64 serial = 2;
+  string label = 3;
+  bytes blob = 4;
+  Inner inner = 5;
+  repeated int32 codes = 6;
+  repeated sint64 ticks = 7;
+  repeated string tags = 8;
+  repeated bytes chunks = 9;
+  repeated Inner inners = 10;
+  Choice choice = 11;
+  sint64 missing_scalar = 12;
+  Inner missing_msg = 13;
+  repeated int32 missing_rep = 14;
+}
